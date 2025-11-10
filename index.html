@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Jaewon's Hub</title>
   <style>
-    /* 기본 스타일 */
+    /* 기본 스타일 초기화 */
     * {
       margin: 0;
       padding: 0;
@@ -14,19 +14,26 @@
 
     body {
       font-family: 'Arial', sans-serif;
-      background-color: #f7f7f7;
+      background-color: #fafafa;
       overflow-x: hidden;
     }
 
-    /* Top Bar 스타일 */
+    /* 타이틀 폰트 */
+    h1, h2, p {
+      font-family: 'Helvetica Neue', sans-serif;
+    }
+
+    /* 탑바 디자인 */
     .top-bar {
       position: fixed;
       top: 0;
       width: 100%;
-      background: rgba(0, 0, 0, 0.6);
-      padding: 20px;
+      background: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 15px 0;
       z-index: 100;
-      backdrop-filter: blur(10px); /* 블러 효과 */
+      backdrop-filter: blur(10px); /* 배경 블러 효과 */
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     }
 
     .top-bar nav ul {
@@ -36,95 +43,133 @@
     }
 
     .top-bar nav ul li {
-      margin: 0 20px;
+      margin: 0 30px;
     }
 
     .top-bar nav ul li a {
       text-decoration: none;
       color: white;
       font-size: 18px;
+      font-weight: 500;
       transition: color 0.3s ease;
     }
 
     .top-bar nav ul li a:hover {
-      color: #ff6347; /* Hover 시 색상 */
+      color: #ff7f50; /* 색상 변화 */
     }
 
-    /* 메인 콘텐츠 */
-    .main-content {
-      text-align: center;
-      padding-top: 100px; /* 탑바 아래에서 시작 */
-      padding-bottom: 50px;
-      background: url('https://via.placeholder.com/1500x1000') no-repeat center center fixed;
+    /* 메인 콘텐츠 섹션 */
+    .hero {
+      background-image: url('https://via.placeholder.com/1500x800'); /* 실제 이미지 URL로 바꿔주세요 */
       background-size: cover;
+      background-position: center;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
       color: white;
-      backdrop-filter: blur(5px); /* 배경 블러 */
+      position: relative;
+      backdrop-filter: blur(5px);
     }
 
-    .main-content h1 {
+    .hero h1 {
       font-size: 3rem;
+      font-weight: 700;
       margin-bottom: 20px;
     }
 
-    .main-content p {
+    .hero p {
       font-size: 1.2rem;
+      margin-bottom: 30px;
+      opacity: 0.8;
     }
 
-    /* 다이노 버튼 스타일 */
+    /* 다이노 버튼 */
     .footer {
       position: fixed;
       bottom: 20px;
-      width: 100%;
-      display: flex;
-      justify-content: center;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 200;
     }
 
     .dino-button {
-      padding: 15px 30px;
-      font-size: 18px;
+      padding: 20px 40px;
+      font-size: 20px;
       color: white;
       background-color: #ff6347;
       border: none;
       border-radius: 50px;
-      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
       cursor: pointer;
       transition: transform 0.3s ease, background-color 0.3s ease;
     }
 
     .dino-button:hover {
       background-color: #ff4500;
-      transform: scale(1.1); /* Hover 시 크기 변화 */
+      transform: scale(1.1);
     }
 
     .dino-button:active {
       transform: scale(1);
     }
+
+    /* 푸터 스타일 */
+    footer {
+      background: #222;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      font-size: 14px;
+    }
+
+    footer a {
+      color: #ff7f50;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    footer a:hover {
+      color: #ff6347;
+    }
   </style>
 </head>
 <body>
 
-  <!-- Top Bar -->
+  <!-- Top Bar (네비게이션 바) -->
   <header class="top-bar">
     <nav>
       <ul>
         <li><a href="#home">Home</a></li>
         <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
     </nav>
   </header>
 
-  <!-- Main Content -->
-  <section class="main-content">
-    <h1>Welcome to Jaewon's Hub!</h1>
-    <p>여기에 당신만의 멋진 페이지 내용이 들어갑니다. 블러 효과와 함께 꾸며봅시다!</p>
+  <!-- Hero Section -->
+  <section class="hero">
+    <div>
+      <h1>Welcome to Jaewon's Hub!</h1>
+      <p>Transform your ideas into reality with creativity and innovation.</p>
+      <a href="#about" class="dino-button">Explore More</a>
+    </div>
   </section>
 
-  <!-- Footer -->
-  <footer class="footer">
+  <!-- Main Content -->
+  <section id="about" style="padding: 100px 20px; text-align: center;">
+    <h2>About Us</h2>
+    <p>Here at Jaewon's Hub, we focus on providing high-quality solutions to make your life easier and more efficient.</p>
+  </section>
+
+  <!-- Footer (다이노 버튼) -->
+  <footer>
     <button class="dino-button" onclick="window.location.href='dino.html';">
       다이노
     </button>
+    <p>© 2025 Jaewon's Hub | <a href="#contact">Contact Us</a></p>
   </footer>
 
   <script>
