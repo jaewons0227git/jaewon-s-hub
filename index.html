@@ -3,230 +3,119 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Floating Glass Topbar</title>
+<title>Glass Floating Topbar (Left)</title>
 <style>
   :root{
-    --bg: linear-gradient(180deg,#0f172a 0%, #071029 100%);
-    --glass-bg: rgba(255,255,255,0.06);
-    --glass-border: rgba(255,255,255,0.12);
-    --accent: rgba(255,255,255,0.92);
-    --muted: rgba(255,255,255,0.6);
-    --shadow: 0 10px 30px rgba(2,6,23,0.6);
-    --radius: 18px;
-    --gap: 12px;
-    font-family: "Inter", "SF Pro Text", -apple-system, system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    --bg: #f4f6fb;
+    --text: #111;
+    --glass-bg: rgba(255,255,255,0.6);
+    --glass-border: rgba(255,255,255,0.8);
+    --shadow: 0 8px 25px rgba(0,0,0,0.08);
+    --radius: 16px;
+    --accent: #007aff;
+    --muted: #555;
+    font-family: "Samsung Sharp Sans", "Pretendard", "Inter", -apple-system, system-ui, sans-serif;
   }
 
-  /* page */
-  html,body{height:100%;margin:0;background:var(--bg);color:var(--accent);-webkit-font-smoothing:antialiased;display:flex;align-items:flex-start;justify-content:center;padding:48px 16px 120px;}
+  html,body{
+    margin:0;
+    height:100%;
+    background:var(--bg);
+    color:var(--text);
+    -webkit-font-smoothing:antialiased;
+  }
 
-  /* container to limit width */
-  .page-wrap{width:min(1100px,96%);}
-
-  /* floating topbar */
+  /* 탑바 */
   .topbar{
-    position: sticky;
-    top: 24px; /* floating offset from top */
-    margin: 0 auto;
+    position: fixed;
+    top: 20px;
+    left: 20px;
     display:flex;
     align-items:center;
-    justify-content:space-between;
-    gap:var(--gap);
-    padding:14px 18px;
-    border-radius:calc(var(--radius) + 6px);
-    background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+    gap:10px;
+    padding:10px 16px;
+    border-radius: var(--radius);
+    background: var(--glass-bg);
+    backdrop-filter: blur(14px) saturate(180%);
+    -webkit-backdrop-filter: blur(14px) saturate(180%);
     box-shadow: var(--shadow);
-    backdrop-filter: blur(10px) saturate(140%);
-    -webkit-backdrop-filter: blur(10px) saturate(140%);
-    border: 1px solid rgba(255,255,255,0.08);
-    /* subtle inner glass highlight using pseudo-element */
-    overflow: visible;
-    transition: transform .32s cubic-bezier(.2,.9,.2,1), box-shadow .28s;
-    transform: translateY(0);
+    border: 1px solid var(--glass-border);
+    z-index:100;
+    transition: all 0.25s ease;
   }
 
-  /* slight lift on hover/focus within */
-  .topbar:focus-within,
-  .topbar:hover{ transform: translateY(-6px); box-shadow: 0 18px 50px rgba(2,6,23,0.75); }
-
-  /* Brand area */
-  .brand{
-    display:flex;
-    gap:12px;
-    align-items:center;
+  .topbar:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.12);
   }
+
   .logo{
-    width:44px;height:44px;border-radius:10px;
-    background: linear-gradient(135deg, rgba(255,255,255,0.12), rgba(255,255,255,0.03));
-    display:flex;align-items:center;justify-content:center;
-    font-weight:700;color:var(--accent);font-size:18px;
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.06), 0 6px 20px rgba(2,6,23,0.6);
-    border:1px solid rgba(255,255,255,0.06);
-    backdrop-filter: blur(6px);
-  }
-  .brand-title{
-    display:flex;flex-direction:column;line-height:1;
-  }
-  .brand-title .title{font-weight:700;font-size:15px;}
-  .brand-title .subtitle{font-size:12px;color:var(--muted);margin-top:2px;}
-
-  /* Button group (inside the bar) */
-  .controls{
-    display:flex;align-items:center;gap:10px;
-  }
-
-  /* glass button style */
-  .glass-btn{
-    position:relative;
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
-    padding:8px 12px;
-    min-height:36px;
-    border-radius:12px;
-    background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
-    border: 1px solid rgba(255,255,255,0.06);
-    color:var(--accent);
-    font-weight:600;
-    font-size:13px;
-    cursor:pointer;
-    box-shadow: 0 4px 14px rgba(2,6,23,0.5);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-    transition: transform .14s ease, opacity .12s ease, box-shadow .14s;
-    text-decoration:none;
-  }
-  .glass-btn:active{ transform: translateY(1px) scale(.998); }
-  .glass-btn:hover{ box-shadow: 0 10px 26px rgba(2,6,23,0.55); }
-
-  /* icon placeholder */
-  .icon{
-    width:18px;height:18px;border-radius:6px;background:rgba(255,255,255,0.08);display:inline-block;
-    display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--muted);
-    border:1px solid rgba(255,255,255,0.03);
-  }
-
-  /* Primary button variant */
-  .glass-btn.primary{
-    background: linear-gradient(90deg, rgba(255,255,255,0.12), rgba(255,255,255,0.06));
-    color: #020617;
     font-weight:700;
-    border: 1px solid rgba(255,255,255,0.12);
-  }
-  .glass-btn.primary .icon{ background: rgba(255,255,255,0.92); color:#0b1220; }
-
-  /* small round icon button */
-  .icon-btn{
-    padding:8px;min-width:40px;height:40px;border-radius:10px;display:inline-flex;align-items:center;justify-content:center;
-  }
-
-  /* search / input style inside topbar (subtle) */
-  .search{
-    display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:12px;background: rgba(255,255,255,0.02);
-    border:1px solid rgba(255,255,255,0.03);backdrop-filter: blur(6px);
-  }
-  .search input{
-    background:transparent;border:0;outline:0;color:var(--accent);font-size:13px;width:220px;
-  }
-  .search input::placeholder{color:rgba(255,255,255,0.45);}
-
-  /* responsive adjustments */
-  @media (max-width:720px){
-    .topbar{flex-direction:column;align-items:stretch;padding:12px;gap:10px;}
-    .brand-title .title{font-size:14px}
-    .search input{width:120px;}
-    .controls{flex-wrap:wrap;justify-content:flex-end;}
-    .logo{width:40px;height:40px;border-radius:10px;}
+    font-size:15px;
+    background: var(--accent);
+    color:#fff;
+    border-radius:10px;
+    padding:8px 10px;
+    letter-spacing:0.5px;
   }
 
-  /* decorative hero content just to show blur behind */
-  .hero{
-    margin-top:26px;color:var(--muted);line-height:1.5;
-    background: linear-gradient(90deg, rgba(255,255,255,0.02), transparent);
-    padding:20px;border-radius:14px;border:1px solid rgba(255,255,255,0.03);
+  .btn{
+    border:none;
+    background:rgba(255,255,255,0.4);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-radius:10px;
+    padding:8px 14px;
+    font-weight:600;
+    cursor:pointer;
+    color:var(--text);
+    transition: all 0.15s ease;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.05);
   }
 
-  /* subtle floating glass shine using pseudo-element on topbar (diagonal) */
-  .topbar::after{
-    content:"";
-    position:absolute;left:12%;top:-2px;bottom:-2px;width:30%;
-    background: linear-gradient(120deg, rgba(255,255,255,0.06), rgba(255,255,255,0.0));
-    transform: skewX(-12deg);
-    pointer-events:none;border-radius:inherit;mix-blend-mode:overlay;
+  .btn:hover{
+    background:rgba(255,255,255,0.7);
+    transform: translateY(-1px);
+  }
+
+  .btn.primary{
+    background:var(--accent);
+    color:white;
+  }
+
+  /* 예시 본문 */
+  main{
+    padding:100px 40px;
+    font-size:18px;
+    line-height:1.6;
+  }
+
+  .card{
+    margin-top:20px;
+    background:white;
+    border-radius:14px;
+    padding:20px;
+    box-shadow:0 4px 18px rgba(0,0,0,0.05);
+    max-width:500px;
   }
 </style>
 </head>
 <body>
-  <div class="page-wrap" role="main">
-    <!-- Topbar -->
-    <header class="topbar" aria-label="글라스 탑 바">
-      <div class="brand" aria-hidden="false">
-        <div class="logo" aria-hidden="true">MG</div>
-        <div class="brand-title">
-          <div class="title">Minsu Glassbar</div>
-          <div class="subtitle">floating • blur • glassmorphism</div>
-        </div>
-      </div>
 
-      <div style="display:flex;align-items:center;gap:12px;">
-        <div class="search" role="search" aria-label="사이트 검색">
-          <div class="icon" aria-hidden="true">🔍</div>
-          <input type="search" placeholder="Search..." aria-label="검색 입력" />
-        </div>
+  <header class="topbar">
+    <div class="logo">MG</div>
+    <button class="btn">Home</button>
+    <button class="btn">About</button>
+    <button class="btn primary">Start</button>
+  </header>
 
-        <nav class="controls" aria-label="탑바 컨트롤">
-          <a class="glass-btn" href="#features" role="button">
-            <span class="icon" aria-hidden="true">★</span>
-            Features
-          </a>
+  <main>
+    <h1>화이트 모드 글라스 탑바 예제</h1>
+    <p>탑바는 화면 왼쪽 상단에 고정되어 있으며, 유리처럼 반투명한 블러 효과를 갖고 있습니다.</p>
+    <div class="card">
+      이곳은 본문 예시 영역입니다. 스크롤해도 탑바는 화면 상단에 고정되어 있습니다.
+    </div>
+  </main>
 
-          <button class="glass-btn primary" id="actionBtn" aria-pressed="false" title="주요 액션">
-            <span class="icon" aria-hidden="true">＋</span>
-            New
-          </button>
-
-          <button class="glass-btn icon-btn" aria-label="설정" title="설정">
-            <span class="icon" aria-hidden="true">⚙</span>
-          </button>
-        </nav>
-      </div>
-    </header>
-
-    <!-- Demo content to show background and blur -->
-    <section class="hero" style="margin-top:20px;">
-      <h2 style="margin:0 0 8px 0;font-size:18px;">데모 컨텐츠</h2>
-      <p style="margin:0 0 12px 0;">
-        이 영역은 탑바 뒤에 보이는 배경입니다. 탑바의 <strong>backdrop-filter: blur()</strong>와 투명한 배경 때문에
-        뒤의 내용이 흐릿하게 보이며 유리 같은 느낌을 줍니다.
-      </p>
-
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:12px;">
-        <div style="padding:12px;border-radius:10px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.03);">
-          카드 1 — 배경과 섞이는 유리 효과.
-        </div>
-        <div style="padding:12px;border-radius:10px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.03);">
-          카드 2 — 호버하면 탑바처럼 부드럽게 떠오르게 만들 수 있습니다.
-        </div>
-        <div style="padding:12px;border-radius:10px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.03);">
-          카드 3 — 반응형으로 작동합니다.
-        </div>
-      </div>
-    </section>
-  </div>
-
-<script>
-  // 간단한 액션 버튼 토글 예시 (접근성 속성 업데이트 포함)
-  const actionBtn = document.getElementById('actionBtn');
-  actionBtn.addEventListener('click', () => {
-    const pressed = actionBtn.getAttribute('aria-pressed') === 'true';
-    actionBtn.setAttribute('aria-pressed', String(!pressed));
-    actionBtn.innerHTML = `<span class="icon" aria-hidden="true">${pressed ? '＋' : '✓'}</span> ${pressed ? 'New' : 'Done'}`;
-  });
-
-  // 탭/키보드에서 포커스 이동 시 시각적 향상 (선택적으로 필요)
-  document.addEventListener('keydown', (e) => {
-    if(e.key === 'Tab') document.documentElement.style.scrollBehavior = 'smooth';
-  });
-</script>
 </body>
 </html>
